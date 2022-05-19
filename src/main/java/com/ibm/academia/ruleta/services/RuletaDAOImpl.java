@@ -1,6 +1,7 @@
 package com.ibm.academia.ruleta.services;
 
 
+
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
@@ -24,8 +25,7 @@ public class RuletaDAOImpl extends GenericoDAOImpl<Ruleta, RuletaRepository> imp
 		ruletaEncontrada.setEstado(ruleta.getEstado());
 		ruletaActualizada = repository.save(ruletaEncontrada);
 		return ruletaActualizada;
-	}
-	
+	}	
 
 
 }

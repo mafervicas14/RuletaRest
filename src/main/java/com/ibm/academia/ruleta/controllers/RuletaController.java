@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ibm.academia.ruleta.exceptions.BadRequestException;
 import com.ibm.academia.ruleta.exceptions.NotFoundException;
+import com.ibm.academia.ruleta.mapper.RuletaMapper;
+import com.ibm.academia.ruleta.models.dto.RuletaDTO;
 import com.ibm.academia.ruleta.models.entities.Ruleta;
 import com.ibm.academia.ruleta.services.RuletaDAO;
 
@@ -41,12 +43,16 @@ public class RuletaController
 	 * @author mafervicas 05/19/2022
 	 */
 	@GetMapping("/listaRuletas")
-	public List<Ruleta> listarTodasRuletas()
+	public ResponseEntity<?> listarRuletasDTO()
 	{
 		List<Ruleta> ruletas = (List<Ruleta>) ruletaDAO.ListarTodos();
         if(ruletas.isEmpty())
             throw  new BadRequestException("No existen ruletas");
-        return ruletas;
+        List<RuletaDTO> listaRuletas = ruletas
+        		.stream()
+        		.map(RuletaMapper::mapRuleta)
+        		.collect(Collectors.toList());
+        return new ResponseEntity<List <RuletaDTO>>(listaRuletas, HttpStatus.OK);
 	}
 	
 	

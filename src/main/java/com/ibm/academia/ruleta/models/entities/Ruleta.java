@@ -2,6 +2,7 @@ package com.ibm.academia.ruleta.models.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
@@ -21,7 +22,12 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import lombok.Getter;
+import lombok.Setter;
 
+
+@Getter
+@Setter
 @Entity
 @Table(name="ruletas")
 public class Ruleta implements Serializable
@@ -62,73 +68,12 @@ public class Ruleta implements Serializable
 	private Date fechaModificacion;
 	
 	@OneToMany(mappedBy = "ruleta", fetch = FetchType.LAZY)
-    @JsonIgnoreProperties({"ruleta"})
+	@JsonIgnoreProperties({"apuesta"})
     private Set<Apuesta> apuestas;
 	
 	private static final long serialVersionUID = 3715474539401173545L;
 	
 	
-	
-	public String getEstado() {
-		return estado;
-	}
-
-
-
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-	
-	
-
-
-
-	public Long getId() {
-		return id;
-	}
-
-
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-
-
-	public Integer getNumeroGanador() {
-		return numeroGanador;
-	}
-
-
-
-	public void setNumeroGanador(Integer numeroGanador) {
-		this.numeroGanador = numeroGanador;
-	}
-
-
-
-	public String getColorGanador() {
-		return colorGanador;
-	}
-
-
-
-	public void setColorGanador(String colorGanador) {
-		this.colorGanador = colorGanador;
-	}
-
-
-
-	public Date getFechaAlta() {
-		return fechaAlta;
-	}
-
-	public Date getFechaModificacion() {
-		return fechaModificacion;
-	}
-
-
-
 
 
 	//Métodos

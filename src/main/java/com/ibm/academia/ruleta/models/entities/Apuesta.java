@@ -22,11 +22,16 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ibm.academia.ruleta.enums.ColoresPosibles;
 
+import lombok.Getter;
+import lombok.Setter;
 
 
+@Getter
+@Setter
 @Entity
 @Table(name="apuestas")
 public class Apuesta implements Serializable
@@ -64,57 +69,9 @@ public class Apuesta implements Serializable
     
     @ManyToOne(optional = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name="ruleta_id")
+    @JsonIgnore
     @JsonIgnoreProperties({"hibernateLazyInitializer", "apuestas"})
     private Ruleta ruleta;
-	
-    @Column(name="resultado")
-    private Boolean resultado;
-    
-	public Integer getNumeroApostado() {
-		return numeroApostado;
-	}
-	public void setNumeroApostado(Integer numeroApostado) {
-		this.numeroApostado = numeroApostado;
-	}
-
-
-	public ColoresPosibles getColoresPosibles() {
-		return colorApostado;
-	}
-	public void setColoresPosibles(ColoresPosibles coloresPosibles) {
-		this.colorApostado = coloresPosibles;
-	}
-
-	
-	public Double getDineroApostado() {
-		return dineroApostado;
-	}
-	public void setDineroApostado(Double dineroApostado) {
-		this.dineroApostado = dineroApostado;
-	}
-	
-	public Ruleta getRuleta() {
-		return ruleta;
-	}
-	public void setRuleta(Ruleta ruleta) {
-		this.ruleta = ruleta;
-	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public Date getFechaAlta() {
-		return fechaAlta;
-	}
-	public void setFechaAlta(Date fechaAlta) {
-		this.fechaAlta = fechaAlta;
-	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 	
 	
 

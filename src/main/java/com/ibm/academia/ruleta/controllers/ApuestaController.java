@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -107,13 +108,12 @@ public class ApuestaController
     }
 	
 	@GetMapping("/historialFinal/ruletaId/{ruletaId}")
-	public Optional<Ruleta> historialFinal(@PathVariable Long ruletaId)
+	public List<Apuesta> historialFinal(@PathVariable Long ruletaId)
 	{
-		 Optional<Ruleta> oRuleta = ruletaDAO.buscarPorId(ruletaId);
-		 if(oRuleta.isEmpty())
-	             throw  new BadRequestException("No existen ruletas con ese Id");
-	      
-	       return oRuleta;
+		List<Apuesta> apuestas = (List<Apuesta>) apuestaDAO.historialRuleta(ruletaId);
+		 if(apuestas.isEmpty())
+	            throw  new BadRequestException("No existen Apuestas");
+	        return apuestas;
 	    		 
 	}
 
