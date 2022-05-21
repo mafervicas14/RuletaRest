@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ibm.academia.ruleta.exceptions.BadRequestException;
 import com.ibm.academia.ruleta.exceptions.NotFoundException;
+import com.ibm.academia.ruleta.exceptions.NotReadableException;
 import com.ibm.academia.ruleta.models.entities.Apuesta;
 import com.ibm.academia.ruleta.models.entities.Ruleta;
 import com.ibm.academia.ruleta.services.ApuestaDAO;
@@ -74,8 +75,10 @@ public class ApuestaController
                     .map(errores -> "Campo: '" + errores.getField() + "'" + errores.getDefaultMessage())
                     .collect(Collectors.toList());
             validaciones.put("Lista Errores", listaErrores);
-            return new ResponseEntity<Map<String, Object>>(validaciones, HttpStatus.BAD_REQUEST);
+            throw new NotReadableException(validaciones.toString());
+            
         }
+     
 
         Apuesta apuestaGuardada = apuestaDAO.guardar(apuesta);
         return new ResponseEntity<Apuesta>(apuestaGuardada, HttpStatus.CREATED);
